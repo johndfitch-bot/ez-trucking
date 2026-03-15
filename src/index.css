@@ -1,0 +1,105 @@
+/* EZ Trucking LLC — design tokens */
+:root {
+  --slate-900: #0f172a;
+  --slate-800: #1e293b;
+  --slate-700: #334155;
+  --slate-600: #475569;
+  --slate-500: #64748b;
+  --slate-400: #94a3b8;
+  --slate-300: #cbd5e1;
+  --slate-200: #e2e8f0;
+  --slate-100: #f1f5f9;
+  --orange: #f97316;
+  --orange-hover: #ea580c;
+  --orange-light: #fdba74;
+  --white: #ffffff;
+  --black: #000000;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-size: 16px;
+  font-family: 'Barlow', system-ui, sans-serif;
+  background-color: var(--slate-900);
+  color: var(--slate-200);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-weight: 400;
+  line-height: 1.1;
+  margin: 0 0 0.5em;
+}
+
+label, .label {
+  font-family: 'Barlow Condensed', sans-serif;
+}
+
+a {
+  color: var(--orange);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--orange-light);
+}
+
+button {
+  font-family: 'Barlow Condensed', sans-serif;
+  cursor: pointer;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.section-wrapper {
+  opacity: 1 !important;
+}
+
+.section-wrapper > * {
+  opacity: 1;
+}
+
+.quoteSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .quoteSection {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  p {
+    font-size: max(0.95rem, 1em);
+  }
+}
+
+@media (max-width: 767px) {
+  body {
+    padding-bottom: 72px;
+  }
+  p {
+    font-size: max(0.95rem, 1em);
+  }
+}

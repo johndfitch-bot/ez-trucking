@@ -1,0 +1,38 @@
+.wrapper {
+  overflow: hidden;
+  padding: 0.75rem 0;
+  background: var(--slate-800);
+  border-top: 1px solid var(--slate-700);
+  border-bottom: 1px solid var(--slate-700);
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: scroll 40s linear infinite;
+}
+
+.inner {
+  display: flex;
+  gap: 3rem;
+  padding-right: 3rem;
+}
+
+.item {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--slate-400);
+  white-space: nowrap;
+}
+
+.sep {
+  color: var(--slate-500);
+  font-weight: 400;
+  pointer-events: none;
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
