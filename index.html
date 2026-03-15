@@ -72,7 +72,7 @@ section h2{font-family:'Bebas Neue',sans-serif;font-size:2rem;margin-bottom:24px
 
 /* MARQUEE — between Hero and Services */
 .marquee-wrap{overflow:hidden;max-width:100vw;background:rgba(249,115,22,0.06);border-top:1px solid rgba(249,115,22,0.15);border-bottom:1px solid rgba(249,115,22,0.15);height:44px;display:flex;align-items:center}
-.marquee-track{display:flex;align-items:center;animation:marquee 30s linear infinite;white-space:nowrap;width:max-content}
+.marquee-track{display:flex;align-items:center;animation:marquee 10s linear infinite;white-space:nowrap;width:max-content}
 .marquee-track span{font-family:'Barlow Condensed',sans-serif;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.7);padding:0 12px}
 .marquee-track span.sep{color:var(--or);padding:0 6px;font-size:0.5rem;vertical-align:middle}
 @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
@@ -88,11 +88,14 @@ section h2{font-family:'Bebas Neue',sans-serif;font-size:2rem;margin-bottom:24px
 .svc-name{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--wh);margin-bottom:6px;text-shadow:0 2px 12px rgba(0,0,0,1),0 0 40px rgba(0,0,0,0.8)}
 .svc-desc{font-family:'Barlow',sans-serif;font-size:0.95rem;color:rgba(255,255,255,0.9);line-height:1.45;text-shadow:0 1px 8px rgba(0,0,0,0.9)}
 .svc-region{text-align:center;font-family:'Barlow',sans-serif;font-size:0.8rem;color:rgba(255,255,255,0.4);margin-top:20px}
+.service-area-label{font-size:0.75rem;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:24px;margin-bottom:0}
+.service-area-map{width:100%;height:250px;border-radius:12px;border:none;margin-top:24px;display:block}
 
 /* 4. ABOUT — short, no badges */
 .about-wrap{display:grid;grid-template-columns:1fr 1.2fr;gap:40px;align-items:center}
 .about-photo{width:140px;height:140px;border-radius:8px;background:var(--slate-800);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center}
 .about-photo .ic{font-size:3rem;color:var(--or);opacity:.8}
+.about-eric{width:140px;height:140px;border-radius:50%;object-fit:cover;border:3px solid var(--orange);margin:0 auto 24px;display:block}
 .about-copy{font-family:'Barlow',sans-serif;font-size:1rem;color:rgba(255,255,255,0.7);line-height:1.65}
 .about-trust{display:flex;flex-direction:column;gap:16px;margin-top:28px}
 .about-trust-row{display:flex;align-items:center;gap:12px}
@@ -278,14 +281,15 @@ footer{background:var(--slate-800);border-top:1px solid rgba(255,255,255,0.06);p
       </div>
     </div>
   </div>
-  <p class="svc-region rv">Serving NorCal · Bay Area · Oregon · Nevada</p>
+  <p class="service-area-label rv">Service Area</p>
+  <iframe class="service-area-map rv" src="https://maps.google.com/maps?q=Northern+California&z=6&output=embed" title="EZ Trucking service area — Northern California"></iframe>
 </section>
 
 <!-- 4. ABOUT -->
 <section id="about">
   <h2 class="sec-title rv">The Man Behind the Wheel</h2>
   <div class="about-wrap rv">
-    <div class="about-photo"><svg class="ic" style="width:48px;height:48px"><use href="#i-truck"/></svg></div>
+    <div><img src="/images/eric.jpg" alt="Eric Z — EZ Trucking" class="about-eric rv"></div>
     <div>
       <p class="about-copy">30+ years on the road. Owner-operator since 2006. Licensed, insured, no middlemen. You call Eric, Eric shows up.</p>
       <div class="about-trust">
@@ -299,7 +303,7 @@ footer{background:var(--slate-800);border-top:1px solid rgba(255,255,255,0.06);p
 </section>
 
 <!-- COMPLIANCE STRIP -->
-<div class="compliance-strip">USDOT# [PENDING] · MC# [PENDING] · $1M Primary Liability</div>
+<div class="compliance-strip">$1M Primary Liability · Licensed &amp; Insured</div>
 
 <!-- 5. GALLERY -->
 <div class="gallery-section">
