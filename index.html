@@ -103,14 +103,15 @@ footer{background:#0b1120}
 .svc-desc{font-family:'Barlow',sans-serif;font-size:1rem;color:rgba(255,255,255,0.8);line-height:1.6;text-shadow:0 1px 8px rgba(0,0,0,0.9)}
 .svc-region{text-align:center;font-family:'Barlow',sans-serif;font-size:0.8rem;color:rgba(255,255,255,0.4);margin-top:20px}
 .service-area-label{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:#ffffff;text-transform:uppercase;letter-spacing:0.05em;line-height:1.1;text-align:center;margin-top:24px;margin-bottom:16px}
-.service-area-locations{font-family:'Barlow',sans-serif;font-size:1rem;color:rgba(255,255,255,0.6);text-align:center;margin-bottom:16px;white-space:nowrap;overflow-x:auto}
+.service-area-locations{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:16px}
+.area-pill{background:rgba(34,197,94,0.12);color:#22c55e;font-family:'Barlow Condensed',sans-serif;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.06em;padding:6px 14px;border-radius:20px;border:1px solid rgba(34,197,94,0.25);white-space:nowrap}
 .service-area-map{width:100%;height:250px;border-radius:12px;border:none;margin:0;display:block}
 
 /* 4. ABOUT — card layout */
-#about{padding-bottom:48px}
-.about-card{background:transparent;border:none;border-radius:0;padding:32px 24px;max-width:480px;margin:0 auto;margin-bottom:0}
+#about{padding:48px 20px}
+.about-card{background:transparent;border:none;border-radius:0;padding:0;max-width:100%;margin:0 auto;margin-bottom:0}
 .about-header{display:flex;align-items:center;gap:20px;margin-bottom:24px}
-.about-photo{width:140px;height:140px;border-radius:12px;object-fit:cover;border:3px solid #f97316;flex-shrink:0}
+.about-photo{width:150px;height:150px;border-radius:12px;object-fit:cover;border:3px solid #f97316;flex-shrink:0}
 .about-title-col{flex:1}
 .about-name{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:#ffffff;text-transform:uppercase;letter-spacing:0.05em;line-height:1.1;margin:0 0 4px 0}
 .about-role{font-family:'Barlow Condensed',sans-serif;font-size:0.85rem;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.08em;margin:0}
@@ -307,7 +308,14 @@ footer{border-top:1px solid rgba(255,255,255,0.06);padding:48px 20px;text-align:
 <!-- SERVICE MAP — own section, slate-800 -->
 <section id="service-map">
   <p class="service-area-label rv">SERVICE AREA</p>
-  <p class="service-area-locations rv">NorCal · Bay Area · Sacramento · Oregon · Nevada · Reno</p>
+  <div class="service-area-locations rv">
+    <span class="area-pill">NorCal</span>
+    <span class="area-pill">Bay Area</span>
+    <span class="area-pill">Sacramento</span>
+    <span class="area-pill">Oregon</span>
+    <span class="area-pill">Nevada</span>
+    <span class="area-pill">Reno</span>
+  </div>
   <iframe class="service-area-map rv" src="https://maps.google.com/maps?q=Sacramento+California&z=5&output=embed" title="EZ Trucking service area — Northern California"></iframe>
 </section>
 
