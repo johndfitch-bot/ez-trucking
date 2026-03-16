@@ -73,8 +73,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;min-height:60px;
 .hero-stats span:first-child{padding-left:0}
 
 /* SECTION COMMON — SIZE-A */
-section{padding:60px 20px;max-width:1200px;margin:0 auto;width:100%}
+section{padding:48px 20px;max-width:1200px;margin:0 auto;width:100%}
 section h2,.sec-title{font-family:'Bebas Neue',sans-serif;font-size:2rem;margin-bottom:24px;letter-spacing:0.05em;line-height:1.1;text-transform:uppercase;color:#ffffff}
+#services > .sec-title{text-align:center}
 
 /* MARQUEE — between Hero and Services */
 .marquee-wrap{overflow:hidden;max-width:100vw;background:rgba(249,115,22,0.06);border-top:1px solid rgba(249,115,22,0.15);border-bottom:1px solid rgba(249,115,22,0.15);height:44px;display:flex;align-items:center}
@@ -95,12 +96,13 @@ section h2,.sec-title{font-family:'Bebas Neue',sans-serif;font-size:2rem;margin-
 .svc-desc{font-family:'Barlow',sans-serif;font-size:1rem;color:rgba(255,255,255,0.8);line-height:1.6;text-shadow:0 1px 8px rgba(0,0,0,0.9)}
 .svc-region{text-align:center;font-family:'Barlow',sans-serif;font-size:0.8rem;color:rgba(255,255,255,0.4);margin-top:20px}
 .service-area-label{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:#ffffff;text-transform:uppercase;letter-spacing:0.05em;line-height:1.1;text-align:center;margin-top:24px;margin-bottom:16px}
-.service-area-map{width:calc(100% - 40px);height:250px;border-radius:12px;border:none;margin:0 auto;display:block}
+.service-area-locations{font-family:'Barlow',sans-serif;font-size:1rem;color:rgba(255,255,255,0.6);text-align:center;margin-bottom:16px;white-space:nowrap;overflow-x:auto}
+.service-area-map{width:100%;height:250px;border-radius:12px;border:none;margin:0;display:block}
 
 /* 4. ABOUT — card layout */
 .about-card{background:#1e293b;border-radius:16px;padding:32px 24px;max-width:480px;margin:0 auto;border:1px solid rgba(249,115,22,0.12)}
 .about-header{display:flex;align-items:center;gap:20px;margin-bottom:24px}
-.about-photo{width:110px;height:110px;border-radius:12px;object-fit:cover;border:3px solid #f97316;flex-shrink:0}
+.about-photo{width:130px;height:130px;border-radius:12px;object-fit:cover;border:3px solid #f97316;flex-shrink:0}
 .about-title-col{flex:1}
 .about-name{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:#ffffff;text-transform:uppercase;letter-spacing:0.05em;line-height:1.1;margin:0 0 4px 0}
 .about-role{font-family:'Barlow Condensed',sans-serif;font-size:0.85rem;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.08em;margin:0}
@@ -112,7 +114,7 @@ section h2,.sec-title{font-family:'Bebas Neue',sans-serif;font-size:2rem;margin-
 .about-area{font-family:'Barlow',sans-serif;font-size:1rem;color:rgba(255,255,255,0.5);line-height:1.6;margin:0;text-align:center}
 
 /* 5. GALLERY */
-.gallery-section{padding:60px 20px;max-width:1200px;margin:0 auto}
+.gallery-section{padding:48px 20px;max-width:1200px;margin:0 auto}
 .gallery-section .sec-title,.gallery-section h2{text-align:center}
 .gallery-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:24px;border-radius:8px;overflow:hidden}
 .gallery-item{position:relative;aspect-ratio:4/3;overflow:hidden;border-radius:8px}
@@ -125,7 +127,7 @@ section h2,.sec-title{font-family:'Bebas Neue',sans-serif;font-size:2rem;margin-
 .btn-gallery:hover{background:var(--ord)}
 
 /* 6. QUOTE FORM — centered 480px */
-#quote{background:var(--slate-800);padding:60px 20px}
+#quote{background:var(--slate-800);padding:48px 20px}
 .quote-inner{max-width:480px;margin:0 auto}
 .form-wrap{background:var(--s9);border:1px solid rgba(249,115,22,.14);border-radius:12px;padding:32px;margin-top:24px}
 .form-title{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:0.05em;line-height:1.1;text-transform:uppercase;color:#ffffff;margin-bottom:8px;text-align:center}
@@ -176,7 +178,7 @@ input[type=date].finput{color:var(--wh);background:var(--slate-800);color-scheme
 .suc-txt{font-family:'Barlow',sans-serif;font-size:1rem;color:rgba(255,255,255,0.8);line-height:1.6}
 
 /* 7. FOOTER — SIZE-D */
-footer{background:var(--slate-800);border-top:1px solid rgba(255,255,255,0.06);padding:32px 20px 100px;text-align:center}
+footer{background:var(--slate-800);border-top:1px solid rgba(255,255,255,0.06);padding:48px 20px;text-align:center}
 .foot-line{font-family:'Barlow',sans-serif;font-size:0.8rem;color:rgba(255,255,255,0.4)}
 .foot-line a{color:rgba(255,255,255,0.4);text-decoration:none}
 .foot-line a:hover{color:var(--or)}
@@ -209,12 +211,12 @@ footer{background:var(--slate-800);border-top:1px solid rgba(255,255,255,0.06);p
   .headline{font-size:2rem}
 }
 /* COMPLIANCE STRIP — below About */
-.compliance-strip{font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.08em;text-align:center;padding:24px 20px;background:transparent}
+.compliance-strip{font-family:'Barlow Condensed',sans-serif;font-size:1.2rem;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:0.08em;text-align:center;padding:24px 20px;background:transparent;line-height:1.4}
 
 @media(max-width:480px){
   nav{padding:0 16px}
   .hero-inner{padding:0 16px}
-  section{padding:60px 16px}
+  section{padding:48px 16px}
   .svc-card{min-height:280px;height:280px}
   .headline{font-size:2rem}
 }
@@ -296,6 +298,7 @@ footer{background:var(--slate-800);border-top:1px solid rgba(255,255,255,0.06);p
     </div>
   </div>
   <p class="service-area-label rv">SERVICE AREA</p>
+  <p class="service-area-locations rv">NorCal · Bay Area · Sacramento · Oregon · Nevada · Reno</p>
   <iframe class="service-area-map rv" src="https://maps.google.com/maps?q=Sacramento+California&z=5&output=embed" title="EZ Trucking service area — Northern California"></iframe>
 </section>
 
@@ -335,7 +338,7 @@ footer{background:var(--slate-800);border-top:1px solid rgba(255,255,255,0.06);p
 </section>
 
 <!-- COMPLIANCE STRIP -->
-<div class="compliance-strip">$1M Primary Liability · Licensed &amp; Insured</div>
+<div class="compliance-strip">$1M PRIMARY LIABILITY<br>LICENSED &amp; INSURED</div>
 
 <!-- 5. GALLERY -->
 <div class="gallery-section">
