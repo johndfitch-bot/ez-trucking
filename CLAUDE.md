@@ -10,7 +10,6 @@ Trucking logistics and booking platform built with modern React 19, Vite, and Fr
 - **UI Icons**: Lucide React
 - **Image Gallery**: yet-another-react-lightbox
 - **Email**: EmailJS
-- **Automation**: Puppeteer
 - **Build**: Vite
 - **PWA**: vite-plugin-pwa
 
