@@ -6,6 +6,41 @@
 
 ---
 
+## 0. Where to run the UAT
+
+### 0.0 Environment matrix
+
+| Tier | URL | Supabase project | Twilio / Resend | Use for |
+|------|-----|------------------|-----------------|---------|
+| **Local** | `http://localhost:5173` (dev) / `:4173` (preview) | **dev project only** | unset / sandbox numbers | TC-01–TC-19 default target |
+| **Preview** | Vercel preview deploy of the commit under test (`https://ez-trucking-app-<hash>-johndfitch-bot.vercel.app`) | **dev / preview Supabase branch** | unset / sandbox numbers | Pre-merge full UAT, including PWA (TC-19) |
+| **Production** | `https://eztruckingllc.com` (canonical) — also reachable at `https://ez-trucking-app.vercel.app` | **production Supabase project** | **LIVE — real Twilio SMS to Eric `+19167186977` and real Resend email to `1haytrucker1@gmail.com`** | Smoke only — see 0.0.1 |
+
+#### 0.0.1 Production safety contract — READ FIRST
+
+**Do NOT run the full UAT against production.** Webhooks are wired so that any `INSERT` on `quotes` calls `notify-eric` and any new row in `status_function_history` calls `notify-status`. A full UAT would:
+
+- Send Eric a real SMS for the test quote (TC-02).
+- Send Eric an email alert.
+- Trigger a status-change SMS to the fake client phone `5550100000` (Twilio will reject or charge depending on config).
+- Leave a deletable-but-visible test row in production review history if TC-20 is skipped.
+
+**Production smoke is allowed only for:**
+- TC-01 (home renders), TC-15 (invalid token error page), TC-17 (mobile responsiveness), TC-18 (gallery), TC-19 (PWA / SW).
+- These do not write to the database.
+
+For the full booking-loop UAT (TC-02 through TC-14, TC-20), use **Local** or **Preview** with a dev Supabase project whose edge-function secrets either point at a Twilio test credential or are unset (the function tolerates missing secrets — it just no-ops the SMS).
+
+#### 0.0.2 Recommended target
+
+**Default: Vercel Preview deployment** built from the commit on `main`, pointed at a dedicated `ez-trucking-uat` Supabase project that mirrors prod schema but has zero real customer data and no Twilio/Resend secrets set. This isolates the UAT from prod traffic, exercises the same build artifacts that ship, and lets the agent run TC-19 (PWA) which requires a built bundle.
+
+If a preview environment isn't available, fall back to **Local** with `npm run dev` + the same dev Supabase project.
+
+#### 0.0.3 The agent must record `BASE_URL` in the run report and refuse to start if `BASE_URL` resolves to `eztruckingllc.com` and any of TC-02, TC-07, TC-08, TC-11, TC-12, TC-13, TC-14, TC-20 are scheduled.
+
+---
+
 ## 0. Preconditions
 
 ### 0.1 Environment variables (`.env.local`)
@@ -33,7 +68,7 @@ npm run lint     # must be 0 errors
 npm run build    # must succeed
 npm run dev      # serves http://localhost:5173
 ```
-Run UAT against `http://localhost:5173` unless `BASE_URL` is overridden to the production URL.
+Run UAT against `http://localhost:5173` unless `BASE_URL` is overridden to a Preview URL. Never override to production for the full suite — see §0.0.1.
 
 ### 0.4 Test data the agent must generate
 - `TRACK_TOKEN` — captured from Quote submission (format `EZ-XXXX-XXXX`).
