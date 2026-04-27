@@ -25,9 +25,7 @@ async function main() {
   try {
     await shoot(browser, `${BASE}/`, 'home-desktop.png');
     await shoot(browser, `${BASE}/`, 'home-mobile.png', { viewport: MOBILE });
-    await shoot(browser, `${BASE}/admin`, 'admin-desktop.png');
-    await shoot(browser, `${BASE}/driver`, 'driver-mobile.png', { viewport: MOBILE });
-    await shoot(browser, `${BASE}/track/EZ-DEMO-1234`, 'track-mobile.png', { viewport: MOBILE });
+    await shoot(browser, `${BASE}/gallery`, 'gallery-desktop.png');
   } finally {
     await browser.close();
   }

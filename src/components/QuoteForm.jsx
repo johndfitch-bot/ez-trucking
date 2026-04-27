@@ -1,11 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import emailjs from '@emailjs/browser'
-import { Phone, Send, Check, Wheat, HardHat, Package, Container, Zap, MapPin, User, Copy, ExternalLink, Gauge, CalendarDays } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Phone, Send, Check, Wheat, HardHat, Package, Container, Zap, MapPin, User, Gauge, CalendarDays } from 'lucide-react'
 import styles from './QuoteForm.module.css'
-import { supabase } from '../lib/supabase'
-import { generateTrackingToken } from '../lib/tracking'
 import { autocomplete, geocode, haversineMiles, roadMiles } from '../lib/geo'
 import { estimate, weightToSize } from '../lib/pricing'
 
@@ -146,46 +143,8 @@ export default function QuoteForm() {
     setError('')
     setSending(true)
 
-    const token = generateTrackingToken()
-    const payload = {
-      token,
-      load_type: LOAD_OPTIONS.find((o) => o.id === loadType)?.label ?? loadType,
-      load_size: loadSize || null,
-      weight: weight || null,
-      special,
-      pickup_city: pickup,
-      delivery_city: delivery,
-      pickup_lat: pickupCoords?.lat ?? null,
-      pickup_lng: pickupCoords?.lng ?? null,
-      delivery_lat: deliveryCoords?.lat ?? null,
-      delivery_lng: deliveryCoords?.lng ?? null,
-      miles_estimate: miles ?? null,
-      needed_on: date || null,
-      notes: notes || null,
-      quoted_low: preview?.low ?? null,
-      quoted_high: preview?.high ?? null,
-      client_name: name,
-      client_phone: phone,
-      client_email: email || null,
-      user_agent: navigator.userAgent,
-      source: 'web',
-    }
+    const loadLabel = LOAD_OPTIONS.find((o) => o.id === loadType)?.label ?? loadType
 
-    // Primary: Supabase
-    if (supabase) {
-      try {
-        const { data, error: sbErr } = await supabase.from('quotes').insert(payload).select('id, token').single()
-        if (sbErr) throw sbErr
-        setSuccess({ token: data.token, id: data.id, preview })
-        try { localStorage.setItem('ez_last_token', data.token) } catch { /* noop */ }
-        setSending(false)
-        return
-      } catch (err) {
-        console.error('Supabase insert failed, falling back to EmailJS', err)
-      }
-    }
-
-    // Fallback: EmailJS (keeps current deploys functional)
     const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID
     const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
     const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
@@ -193,11 +152,10 @@ export default function QuoteForm() {
       try {
         await emailjs.send(serviceId, templateId, {
           from_name: name, from_email: email, phone,
-          load_type: payload.load_type, pickup, delivery, date,
+          load_type: loadLabel, pickup, delivery, date,
           notes: `${notes || ''}\nSize: ${loadSize}\nWeight: ${weight}\nSpecial: ${special.join(', ')}\nMiles est: ${miles || '—'}\nQuote band: ${preview ? `$${preview.low}-$${preview.high}` : '—'}`,
-          token,
         }, publicKey)
-        setSuccess({ token, preview })
+        setSuccess({ preview })
         setSending(false)
         return
       } catch (err) {
@@ -207,15 +165,13 @@ export default function QuoteForm() {
       }
     }
 
-    // Last resort: mailto
-    const body = encodeURIComponent(`${payload.load_type}\n${pickup} → ${delivery}\n${name} ${phone} ${email}\nNeed: ${date || 'ASAP'}\nSize: ${loadSize}\nWeight: ${weight}\nSpecial: ${special.join(', ')}\nMiles: ${miles || '—'}\nNotes: ${notes}`)
+    const body = encodeURIComponent(`${loadLabel}\n${pickup} → ${delivery}\n${name} ${phone} ${email}\nNeed: ${date || 'ASAP'}\nSize: ${loadSize}\nWeight: ${weight}\nSpecial: ${special.join(', ')}\nMiles: ${miles || '—'}\nNotes: ${notes}`)
     window.location.href = `mailto:1haytrucker1@gmail.com?subject=EZ%20Load%20Request&body=${body}`
-    setSuccess({ token, preview })
+    setSuccess({ preview })
     setSending(false)
   }
 
   if (success) {
-    const trackUrl = success.token ? `${location.origin}/track/${success.token}` : null
     return (
       <motion.div
         className={styles.success}
@@ -224,25 +180,11 @@ export default function QuoteForm() {
       >
         <Check className={styles.successIcon} size={48} aria-hidden />
         <h3 className={styles.successTitle}>Request sent</h3>
-        <p className={styles.successText}>Eric has been alerted. You'll get a confirmation text from him shortly.</p>
+        <p className={styles.successText}>Eric will text or call you back shortly to confirm.</p>
         {success.preview && (
           <div className={styles.successBand}>
             <span>Your ballpark</span>
             <strong>${success.preview.low.toLocaleString()} – ${success.preview.high.toLocaleString()}</strong>
-          </div>
-        )}
-        {trackUrl && (
-          <div className={styles.trackBox}>
-            <span className={styles.trackLabel}>Your tracking link</span>
-            <code className={styles.trackToken}>{success.token}</code>
-            <div className={styles.trackActions}>
-              <button type="button" className={styles.copyBtn} onClick={() => navigator.clipboard?.writeText(trackUrl)}>
-                <Copy size={14} aria-hidden /> Copy link
-              </button>
-              <Link to={`/track/${success.token}`} className={styles.trackLink}>
-                Open tracking <ExternalLink size={14} aria-hidden />
-              </Link>
-            </div>
           </div>
         )}
         <a href="tel:9167186977" className={styles.successCta}>
