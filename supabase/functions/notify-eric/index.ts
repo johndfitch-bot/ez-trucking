@@ -1,15 +1,22 @@
 // Supabase Edge Function: notify-eric
 // Sends SMS + email to Eric whenever a new quote row is inserted.
-// Trigger: database webhook → POST body = row payload.
-// Env required:
+// Trigger: database webhook -> POST body = row payload.
+//
+// SAFETY: NOTIFICATIONS_ENABLED gates ALL outbound traffic. Default is "false".
+// Production must explicitly set NOTIFICATIONS_ENABLED=true. UAT/preview/dev
+// environments leave it unset and the function logs intent but sends nothing.
+//
+// Env required when enabled:
+//   NOTIFICATIONS_ENABLED=true        (kill switch — required to actually send)
 //   TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_FROM, ERIC_PHONE
 //   RESEND_API_KEY (optional, for email)
 //   ERIC_EMAIL (default 1haytrucker1@gmail.com)
-//   SITE_URL  (e.g. https://eztrucking.example)
+//   SITE_URL  (e.g. https://eztruckingllc.com)
 
 // deno-lint-ignore-file no-explicit-any
 import { serve } from 'https://deno.land/std@0.208.0/http/server.ts'
 
+const NOTIFY = (Deno.env.get('NOTIFICATIONS_ENABLED') ?? 'false').toLowerCase() === 'true'
 const TWILIO_SID = Deno.env.get('TWILIO_ACCOUNT_SID') ?? ''
 const TWILIO_TOKEN = Deno.env.get('TWILIO_AUTH_TOKEN') ?? ''
 const TWILIO_FROM = Deno.env.get('TWILIO_FROM') ?? ''
@@ -19,6 +26,10 @@ const ERIC_EMAIL = Deno.env.get('ERIC_EMAIL') ?? '1haytrucker1@gmail.com'
 const SITE_URL = Deno.env.get('SITE_URL') ?? 'https://eztruckingllc.com'
 
 async function sendSMS(to: string, body: string) {
+  if (!NOTIFY) {
+    console.log(`[dry-run] SMS to=${to} body="${body.replace(/\n/g, ' | ')}"`)
+    return { skipped: true, reason: 'notifications_disabled' }
+  }
   if (!TWILIO_SID || !TWILIO_TOKEN || !TWILIO_FROM) return { skipped: true, reason: 'twilio_not_configured' }
   const url = `https://api.twilio.com/2010-04-01/Accounts/${TWILIO_SID}/Messages.json`
   const form = new URLSearchParams({ To: to, From: TWILIO_FROM, Body: body })
@@ -34,6 +45,10 @@ async function sendSMS(to: string, body: string) {
 }
 
 async function sendEmail(to: string, subject: string, html: string) {
+  if (!NOTIFY) {
+    console.log(`[dry-run] EMAIL to=${to} subject="${subject}"`)
+    return { skipped: true, reason: 'notifications_disabled' }
+  }
   if (!RESEND) return { skipped: true, reason: 'resend_not_configured' }
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
@@ -64,28 +79,28 @@ serve(async (req) => {
   const driverUrl = `${SITE_URL}/driver`
 
   if (isInsert) {
-    const smsBody = `EZ: NEW LOAD\n${row.load_type} ${row.pickup_city}→${row.delivery_city}\n${row.client_name} ${row.client_phone}\nNeed: ${row.needed_on ?? 'ASAP'}\nOpen: ${driverUrl}`
+    const smsBody = `EZ: NEW LOAD\n${row.load_type} ${row.pickup_city}->${row.delivery_city}\n${row.client_name} ${row.client_phone}\nNeed: ${row.needed_on ?? 'ASAP'}\nOpen: ${driverUrl}`
     const smsRes = await sendSMS(ERIC_PHONE, smsBody)
 
     const html = `
       <div style="font-family:system-ui;max-width:520px">
         <h2 style="color:#f97316">New Load Request</h2>
-        <p><b>${row.client_name}</b> — ${row.client_phone} ${row.client_email ? `· ${row.client_email}` : ''}</p>
-        <p><b>${row.load_type}</b> · ${row.pickup_city} → ${row.delivery_city}</p>
-        <p>Load size: ${row.load_size ?? '—'} · Weight: ${row.weight ?? '—'}</p>
+        <p><b>${row.client_name}</b> &mdash; ${row.client_phone} ${row.client_email ? `&middot; ${row.client_email}` : ''}</p>
+        <p><b>${row.load_type}</b> &middot; ${row.pickup_city} &rarr; ${row.delivery_city}</p>
+        <p>Load size: ${row.load_size ?? '&mdash;'} &middot; Weight: ${row.weight ?? '&mdash;'}</p>
         <p>Need by: ${row.needed_on ?? 'ASAP'}</p>
-        <p>Notes: ${row.notes ?? '—'}</p>
+        <p>Notes: ${row.notes ?? '&mdash;'}</p>
         <p><a href="${driverUrl}" style="background:#f97316;color:#fff;padding:12px 20px;text-decoration:none;border-radius:6px">Open driver cockpit</a></p>
         <p style="color:#64748b;font-size:12px">Client tracking: ${trackUrl}</p>
       </div>`
-    const emailRes = await sendEmail(ERIC_EMAIL, `EZ load · ${row.pickup_city} → ${row.delivery_city}`, html)
+    const emailRes = await sendEmail(ERIC_EMAIL, `EZ load &middot; ${row.pickup_city} -> ${row.delivery_city}`, html)
 
-    // Confirmation SMS to client
+    let clientRes: any = { skipped: true, reason: 'no_phone' }
     if (row.client_phone) {
-      await sendSMS(row.client_phone, `EZ Trucking: got your load request (${row.pickup_city}→${row.delivery_city}). Track: ${trackUrl}`)
+      clientRes = await sendSMS(row.client_phone, `EZ Trucking: got your load request (${row.pickup_city}->${row.delivery_city}). Track: ${trackUrl}`)
     }
 
-    return new Response(JSON.stringify({ ok: true, smsRes, emailRes }), { headers: { 'content-type': 'application/json' } })
+    return new Response(JSON.stringify({ ok: true, dry_run: !NOTIFY, smsRes, emailRes, clientRes }), { headers: { 'content-type': 'application/json' } })
   }
 
   return new Response(JSON.stringify({ ok: true, skipped: true }), { headers: { 'content-type': 'application/json' } })

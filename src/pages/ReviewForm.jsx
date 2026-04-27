@@ -21,6 +21,13 @@ export default function ReviewForm() {
     let alive = true
     async function load() {
       if (!supabaseReady) { setErr('Reviews not configured.'); setLoading(false); return }
+      const rpc = await supabase.rpc('get_quote_for_review', { p_token: token })
+      if (!alive) return
+      if (!rpc.error && rpc.data) {
+        setQuote(rpc.data)
+        setLoading(false)
+        return
+      }
       const { data } = await supabase.from('quotes').select('id, token, load_type, client_name, pickup_city, delivery_city, status').eq('token', token).maybeSingle()
       if (!alive) return
       if (!data) { setErr('Load not found.'); setLoading(false); return }

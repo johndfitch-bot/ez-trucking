@@ -36,6 +36,16 @@ export default function TrackLoad() {
         return
       }
       setLoading(true)
+      const rpc = await supabase.rpc('get_quote_with_thread', { p_token: token })
+      if (!alive) return
+      if (!rpc.error && rpc.data?.quote) {
+        setQuote(rpc.data.quote)
+        setHistory(rpc.data.history || [])
+        setMessages(rpc.data.messages || [])
+        setLoading(false)
+        return
+      }
+      // Fallback: direct selects (works only against pre-0001 schemas).
       const { data: q, error: qErr } = await supabase.from('quotes').select('*').eq('token', token).maybeSingle()
       if (!alive) return
       if (qErr || !q) {

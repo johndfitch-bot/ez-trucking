@@ -400,8 +400,19 @@ Plus a markdown summary table to stdout. Exit code 0 if all hard cases pass, 1 o
 
 ## 4. Known gaps the agent should flag (not fail on)
 
-1. **Anon read-by-token policy is wide open** — `quotes` SELECT policy is `using (true)`. Any anon can `SELECT *` on the table without knowing a token. Recommend tightening to `using (token = current_setting('request.headers')::json->>'x-track-token')` or moving reads behind an RPC.
+1. **Anon read-by-token policy** — `supabase/migrations/0001_harden_anon_reads.sql` replaces the wide policies with token-scoped RPCs. Verify the migration has been applied on the target Supabase project (run `select proname from pg_proc where proname = 'get_quote_with_thread';` — must return one row). If absent, the client falls back to direct SELECT and TC-02/04 still pass, but the underlying tables are still readable by anon.
 2. **Editable calendar not mounted.** `<AvailabilityCalendar canEdit />` exists but is not used anywhere.
 3. **No admin UI to publish reviews** — manual SQL required.
 4. **Bundle warning** — JS chunk is 666 KB (gzip 199 KB). Code-split candidate but non-blocking.
 5. **EmailJS fallback can mask Supabase failures** in `QuoteForm` (silent path). UAT TC-02 explicitly checks the network call.
+
+## 5. Pre-flight checklist for the UAT operator
+
+Before handing the UAT to the web agent, verify on the target Supabase project:
+
+- [ ] `NOTIFICATIONS_ENABLED` is **unset or `false`** for `notify-eric` and `notify-status`. Confirm via `supabase secrets list`.
+- [ ] Function logs from a manual test invocation show `[dry-run] SMS to=...` lines (no Twilio API hits).
+- [ ] `VITE_SUPABASE_URL` / `VITE_SUPABASE_ANON_KEY` in the build target point at the **UAT project**, not prod.
+- [ ] `pod` storage bucket exists.
+- [ ] Eric test user exists with a known UAT password (separate from prod).
+- [ ] Migration `0001_harden_anon_reads.sql` has been applied (or the operator accepts the wide-policy fallback for this run).
