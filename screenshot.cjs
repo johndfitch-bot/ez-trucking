@@ -3,43 +3,35 @@ const fs = require('fs');
 const path = require('path');
 
 const SCREENSHOTS_DIR = path.join(__dirname, 'screenshots');
+const BASE = process.env.BASE || 'http://localhost:5173';
 
-async function main() {
-  if (!fs.existsSync(SCREENSHOTS_DIR)) {
-    fs.mkdirSync(SCREENSHOTS_DIR, { recursive: true });
-  }
+const DESKTOP = { width: 1440, height: 900 };
+const MOBILE = { width: 390, height: 844, isMobile: true, hasTouch: true, deviceScaleFactor: 2 };
 
-  const browser = await puppeteer.launch({ headless: true });
+async function shoot(browser, url, file, opts = {}) {
   const page = await browser.newPage();
-
-  await page.setViewport({ width: 1440, height: 900 });
-
-  await page.goto('http://localhost:5173', { waitUntil: 'networkidle0' });
-  await new Promise((r) => setTimeout(r, 2000));
-  await page.screenshot({
-    path: path.join(SCREENSHOTS_DIR, 'home-full.png'),
-    fullPage: true,
-  });
-
-  await page.goto('http://localhost:5173/gallery', { waitUntil: 'networkidle0' });
-  await new Promise((r) => setTimeout(r, 2000));
-  await page.screenshot({
-    path: path.join(SCREENSHOTS_DIR, 'gallery-full.png'),
-    fullPage: true,
-  });
-
-  await page.goto('http://localhost:5173/admin', { waitUntil: 'networkidle0' });
-  await new Promise((r) => setTimeout(r, 2000));
-  await page.screenshot({
-    path: path.join(SCREENSHOTS_DIR, 'admin-full.png'),
-    fullPage: true,
-  });
-
-  await browser.close();
-  console.log('Screenshots saved to /screenshots');
+  await page.setViewport(opts.viewport || DESKTOP);
+  await page.goto(url, { waitUntil: 'networkidle2', timeout: 45000 });
+  await new Promise((r) => setTimeout(r, 1500));
+  await page.screenshot({ path: path.join(SCREENSHOTS_DIR, file), fullPage: opts.fullPage !== false });
+  await page.close();
+  console.log('shot', file);
 }
 
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+async function main() {
+  if (!fs.existsSync(SCREENSHOTS_DIR)) fs.mkdirSync(SCREENSHOTS_DIR, { recursive: true });
+
+  const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
+  try {
+    await shoot(browser, `${BASE}/`, 'home-desktop.png');
+    await shoot(browser, `${BASE}/`, 'home-mobile.png', { viewport: MOBILE });
+    await shoot(browser, `${BASE}/admin`, 'admin-desktop.png');
+    await shoot(browser, `${BASE}/driver`, 'driver-mobile.png', { viewport: MOBILE });
+    await shoot(browser, `${BASE}/track/EZ-DEMO-1234`, 'track-mobile.png', { viewport: MOBILE });
+  } finally {
+    await browser.close();
+  }
+  console.log('Done');
+}
+
+main().catch((err) => { console.error(err); process.exit(1); });

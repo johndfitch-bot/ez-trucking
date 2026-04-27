@@ -4,6 +4,7 @@ import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vite.dev/config/
 export default defineConfig({
+  envPrefix: ['VITE_', 'NEXT_PUBLIC_'],
   plugins: [
     react(),
     VitePWA({
@@ -19,6 +20,11 @@ export default defineConfig({
         icons: [
           { src: '/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any maskable' },
           { src: '/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any maskable' },
+        ],
+        shortcuts: [
+          { name: 'Get a quote', short_name: 'Quote', url: '/#quote', icons: [{ src: '/icon-192.png', sizes: '192x192' }] },
+          { name: 'Driver cockpit', short_name: 'Driver', url: '/driver', icons: [{ src: '/icon-192.png', sizes: '192x192' }] },
+          { name: 'Admin', short_name: 'Admin', url: '/admin', icons: [{ src: '/icon-192.png', sizes: '192x192' }] },
         ],
       },
       workbox: {

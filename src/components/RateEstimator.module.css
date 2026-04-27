@@ -46,9 +46,26 @@
 
 .label {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: var(--slate-400);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.autoTag {
+  display: inline-flex;
+  gap: 3px;
+  align-items: center;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: rgba(249,115,22,0.12);
+  color: var(--orange);
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
 }
 
 .select,
@@ -68,26 +85,113 @@
   border-color: var(--orange);
 }
 
-.result {
-  padding: 0.75rem;
-  background: var(--slate-900);
+.cityWrap,
+.milesWrap {
+  position: relative;
+}
+
+.cityIcon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--slate-500);
+  pointer-events: none;
+}
+
+.cityWrap .input,
+.milesWrap .input {
+  padding-left: 30px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.suggest {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: var(--slate-800);
+  border: 1px solid var(--slate-700);
   border-radius: 6px;
+  list-style: none;
+  padding: 4px;
+  margin: 0;
+  z-index: 20;
+  max-height: 220px;
+  overflow-y: auto;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.35);
+}
+.suggest li button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  text-align: left;
+  padding: 8px 10px;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  color: var(--slate-200);
+  font-family: 'Barlow', sans-serif;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.suggest li button:hover {
+  background: rgba(249,115,22,0.12);
+  color: var(--orange);
+}
+
+.sizeRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+.sizeBtn {
+  padding: 8px 10px;
+  background: var(--slate-900);
   border: 1px solid var(--slate-600);
+  color: var(--slate-300);
+  border-radius: 6px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+}
+.sizeBtn:hover { border-color: var(--slate-500); color: var(--slate-200); }
+.sizeBtn[data-selected="true"] { border-color: var(--orange); color: var(--orange); background: rgba(249,115,22,0.08); }
+
+.result {
+  padding: 14px;
+  background: var(--slate-900);
+  border-radius: 8px;
+  border: 1px solid rgba(249,115,22,0.3);
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 3px;
 }
 
 .resultLabel {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--slate-500);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .resultValue {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   color: var(--orange);
+  letter-spacing: 0.02em;
+}
+
+.resultMeta {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.72rem;
+  color: var(--slate-500);
+  letter-spacing: 0.06em;
 }
 
 .cta {
@@ -96,7 +200,7 @@
   justify-content: center;
   gap: 0.5rem;
   width: 100%;
-  padding: 0.75rem 1rem;
+  padding: 0.85rem 1rem;
   background: var(--orange);
   color: var(--slate-900);
   font-family: 'Barlow Condensed', sans-serif;
@@ -105,6 +209,8 @@
   border-radius: 6px;
   text-decoration: none;
   transition: background 0.2s;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .cta:hover {

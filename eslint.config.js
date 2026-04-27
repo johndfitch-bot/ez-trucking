@@ -23,7 +23,12 @@ export default defineConfig([
       },
     },
     rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      // JSX usage isn't detected without eslint-plugin-react; allow `motion`
+      // (from framer-motion) and any capitalized name (typical JSX component) to slip past.
+      'no-unused-vars': ['error', {
+        varsIgnorePattern: '^([A-Z_]|motion$)',
+        argsIgnorePattern: '^([A-Z_]|motion$)',
+      }],
     },
   },
 ])

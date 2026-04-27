@@ -50,7 +50,7 @@ export default function Footer() {
         </div>
       </div>
       <div className={styles.copyright}>
-        &copy; 2025 Eric Z Trucking LLC
+        &copy; {new Date().getFullYear()} Eric Z Trucking LLC
       </div>
     </footer>
   )

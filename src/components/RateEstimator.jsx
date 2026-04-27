@@ -1,78 +1,101 @@
-import { useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
-import { Phone, Calculator } from 'lucide-react'
+import { Phone, Calculator, MapPin, Gauge, Sparkles } from 'lucide-react'
 import styles from './RateEstimator.module.css'
+import { autocomplete, geocode, haversineMiles, roadMiles } from '../lib/geo'
+import { estimate, LOAD_LABELS } from '../lib/pricing'
 
 const LOAD_TYPES = ['hay', 'gravel', 'flatbed', 'container', 'hotshot']
-
-const RATE_TABLE = {
-  hay: {
-    small: [2.8, 3.5],
-    full: [3.2, 4.2],
-    heavy: [3.8, 5.0],
-    min: 350,
-  },
-  gravel: {
-    small: [1.8, 2.5],
-    full: [2.2, 3.0],
-    heavy: [2.8, 3.8],
-    min: 250,
-  },
-  flatbed: {
-    small: [2.5, 3.2],
-    full: [3.0, 4.0],
-    heavy: [3.8, 5.2],
-    min: 300,
-  },
-  container: {
-    small: [3.0, 4.0],
-    full: [3.5, 4.8],
-    heavy: [4.5, 6.0],
-    min: 400,
-  },
-  hotshot: {
-    small: [4.0, 6.0],
-    full: [5.0, 7.0],
-    heavy: [6.0, 9.0],
-    min: 500,
-  },
-}
-
 const SIZES = [
-  { id: 'small', label: 'Small' },
-  { id: 'full', label: 'Full' },
-  { id: 'heavy', label: 'Heavy' },
+  { id: 'small', label: 'Partial' },
+  { id: 'full', label: 'Full load' },
+  { id: 'heavy', label: 'Heavy / 80K' },
 ]
 
-function round25(n) {
-  return Math.round(n / 25) * 25
+function useDebounced(value, ms = 400) {
+  const [v, setV] = useState(value)
+  useEffect(() => { const t = setTimeout(() => setV(value), ms); return () => clearTimeout(t) }, [value, ms])
+  return v
 }
 
-function estimate(loadType, miles, size) {
-  const rates = RATE_TABLE[loadType]
-  if (!rates || !miles || miles <= 0) return null
-  const [lowPerMile, highPerMile] = rates[size] || rates.full
-  const min = rates.min
-  const low = Math.max(min, round25(miles * lowPerMile))
-  const high = Math.max(min, round25(miles * highPerMile))
-  return { low, high }
-}
-
-const LOAD_LABELS = {
-  hay: 'Hay',
-  gravel: 'Gravel',
-  flatbed: 'Flatbed',
-  container: 'Container',
-  hotshot: 'Hotshot',
+function CityField({ label, value, onChange, onPick, placeholder }) {
+  const [open, setOpen] = useState(false)
+  const [list, setList] = useState([])
+  const debounced = useDebounced(value, 380)
+  useEffect(() => {
+    let alive = true
+    if (!open || debounced.length < 3) {
+      queueMicrotask(() => { if (alive) setList([]) })
+      return () => { alive = false }
+    }
+    autocomplete(debounced).then((r) => { if (alive) setList(r) })
+    return () => { alive = false }
+  }, [debounced, open])
+  return (
+    <div className={styles.row}>
+      <label className={styles.label}>{label}</label>
+      <div className={styles.cityWrap}>
+        <MapPin size={14} aria-hidden className={styles.cityIcon} />
+        <input
+          type="text"
+          className={styles.input}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          onFocus={() => setOpen(true)}
+          onBlur={() => setTimeout(() => setOpen(false), 150)}
+          placeholder={placeholder}
+          aria-label={label}
+          autoComplete="off"
+        />
+        {open && list.length > 0 && (
+          <ul className={styles.suggest}>
+            {list.map((item, i) => (
+              <li key={i}>
+                <button type="button" onMouseDown={(e) => e.preventDefault()} onClick={() => { onPick(item); setOpen(false) }}>
+                  <MapPin size={12} aria-hidden />
+                  {item.short}
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </div>
+  )
 }
 
 export default function RateEstimator() {
   const [loadType, setLoadType] = useState('hay')
-  const [miles, setMiles] = useState('')
   const [size, setSize] = useState('full')
+  const [pickupCity, setPickupCity] = useState('')
+  const [pickupCoords, setPickupCoords] = useState(null)
+  const [deliveryCity, setDeliveryCity] = useState('')
+  const [deliveryCoords, setDeliveryCoords] = useState(null)
+  const [miles, setMiles] = useState('')
+  const [computing, setComputing] = useState(false)
+  const timer = useRef(null)
+
+  useEffect(() => {
+    if (!pickupCity || !deliveryCity) return
+    clearTimeout(timer.current)
+    timer.current = setTimeout(async () => {
+      setComputing(true)
+      let a = pickupCoords || await geocode(pickupCity)
+      let b = deliveryCoords || await geocode(deliveryCity)
+      if (a) setPickupCoords(a)
+      if (b) setDeliveryCoords(b)
+      if (a && b) {
+        const straight = haversineMiles(a, b)
+        setMiles(String(roadMiles(straight)))
+      }
+      setComputing(false)
+    }, 650)
+    return () => clearTimeout(timer.current)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pickupCity, deliveryCity])
 
   const numMiles = parseInt(miles, 10)
-  const result = estimate(loadType, numMiles, size)
+  const result = useMemo(() => estimate(loadType, numMiles, size), [loadType, numMiles, size])
 
   return (
     <div className="section-wrapper">
@@ -83,62 +106,68 @@ export default function RateEstimator() {
         viewport={{ once: true, amount: 0.05 }}
         transition={{ duration: 0.5 }}
       >
-      <div className={styles.container}>
-        <Calculator className={styles.icon} size={32} aria-hidden />
-        <h2 className={styles.title}>Rate estimator</h2>
-        <p className={styles.sub}>Ballpark only. Call Eric for exact rates.</p>
-        <div className={styles.form}>
-          <div className={styles.row}>
-            <label className={styles.label}>Load type</label>
-            <select
-              className={styles.select}
-              value={loadType}
-              onChange={(e) => setLoadType(e.target.value)}
-              aria-label="Load type"
-            >
-              {LOAD_TYPES.map((t) => (
-                <option key={t} value={t}>{LOAD_LABELS[t]}</option>
-              ))}
-            </select>
-          </div>
-          <div className={styles.row}>
-            <label className={styles.label}>Miles</label>
-            <input
-              type="number"
-              className={styles.input}
-              min={1}
-              placeholder="e.g. 150"
-              value={miles}
-              onChange={(e) => setMiles(e.target.value)}
-              aria-label="Miles"
+        <div className={styles.container}>
+          <Calculator className={styles.icon} size={32} aria-hidden />
+          <h2 className={styles.title}>Instant rate estimator</h2>
+          <p className={styles.sub}>Type cities — miles and ballpark fill themselves in. Call Eric for the exact number.</p>
+          <div className={styles.form}>
+            <CityField
+              label="Pickup"
+              value={pickupCity}
+              onChange={(v) => { setPickupCity(v); setPickupCoords(null) }}
+              onPick={(i) => { setPickupCity(i.short); setPickupCoords({ lat: i.lat, lng: i.lng }) }}
+              placeholder="e.g. Marysville"
             />
-          </div>
-          <div className={styles.row}>
-            <label className={styles.label}>Load size</label>
-            <select
-              className={styles.select}
-              value={size}
-              onChange={(e) => setSize(e.target.value)}
-              aria-label="Load size"
-            >
-              {SIZES.map((s) => (
-                <option key={s.id} value={s.id}>{s.label}</option>
-              ))}
-            </select>
-          </div>
-          {result && (
-            <div className={styles.result}>
-              <span className={styles.resultLabel}>Est. range</span>
-              <span className={styles.resultValue}>${result.low.toLocaleString()} – ${result.high.toLocaleString()}</span>
+            <CityField
+              label="Delivery"
+              value={deliveryCity}
+              onChange={(v) => { setDeliveryCity(v); setDeliveryCoords(null) }}
+              onPick={(i) => { setDeliveryCity(i.short); setDeliveryCoords({ lat: i.lat, lng: i.lng }) }}
+              placeholder="e.g. Sacramento"
+            />
+            <div className={styles.row}>
+              <label className={styles.label}>Load type</label>
+              <select className={styles.select} value={loadType} onChange={(e) => setLoadType(e.target.value)} aria-label="Load type">
+                {LOAD_TYPES.map((t) => <option key={t} value={t}>{LOAD_LABELS[t]}</option>)}
+              </select>
             </div>
-          )}
+            <div className={styles.row}>
+              <label className={styles.label}>Size</label>
+              <div className={styles.sizeRow}>
+                {SIZES.map((s) => (
+                  <button key={s.id} type="button" className={styles.sizeBtn} data-selected={size === s.id} onClick={() => setSize(s.id)}>{s.label}</button>
+                ))}
+              </div>
+            </div>
+            <div className={styles.row}>
+              <label className={styles.label}>Miles {computing && <span className={styles.autoTag}><Sparkles size={11} aria-hidden /> auto</span>}</label>
+              <div className={styles.milesWrap}>
+                <Gauge size={14} aria-hidden className={styles.cityIcon} />
+                <input
+                  type="number"
+                  className={styles.input}
+                  min={1}
+                  value={miles}
+                  placeholder="Auto-fills once cities are picked"
+                  onChange={(e) => setMiles(e.target.value)}
+                  aria-label="Miles"
+                />
+              </div>
+            </div>
+            {result && (
+              <motion.div className={styles.result} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}>
+                <span className={styles.resultLabel}>Ballpark range</span>
+                <span className={styles.resultValue}>${result.low.toLocaleString()} – ${result.high.toLocaleString()}</span>
+                <span className={styles.resultMeta}>${result.perMileLow}–${result.perMileHigh}/mi · min ${result.minimum}</span>
+              </motion.div>
+            )}
+          </div>
+          <a href="tel:9167186977" className={styles.cta}>
+            <Phone size={18} aria-hidden />
+            Call Eric for an exact rate
+          </a>
         </div>
-        <a href="tel:9167186977" className={styles.cta}>
-          <Phone size={18} aria-hidden />
-          Call Eric for Exact Rate
-        </a>
-      </div>
-    </motion.section>
+      </motion.section>
     </div>
   )
 }

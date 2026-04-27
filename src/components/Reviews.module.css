@@ -1,0 +1,128 @@
+.section {
+  padding: 4rem 1rem;
+  background: var(--slate-800);
+  border-top: 1px solid var(--slate-700);
+  border-bottom: 1px solid var(--slate-700);
+}
+
+.head {
+  max-width: 760px;
+  margin: 0 auto 2rem;
+  text-align: center;
+}
+
+.kicker {
+  display: inline-block;
+  padding: 4px 12px;
+  background: rgba(249,115,22,0.1);
+  border: 1px solid rgba(249,115,22,0.25);
+  border-radius: 999px;
+  color: var(--orange);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.title {
+  font-family: 'Bebas Neue', sans-serif;
+  color: #fff;
+  font-size: 2.2rem;
+  letter-spacing: 0.02em;
+  margin: 10px 0 12px;
+}
+
+.avgRow {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  font-family: 'Barlow', sans-serif;
+  color: var(--slate-400);
+}
+.avgRow strong {
+  font-family: 'Bebas Neue', sans-serif;
+  color: var(--orange);
+  font-size: 1.4rem;
+  letter-spacing: 0.03em;
+}
+
+.stars {
+  display: inline-flex;
+  gap: 2px;
+  color: #facc15;
+}
+
+.grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.card {
+  position: relative;
+  padding: 18px;
+  background: var(--slate-900);
+  border: 1px solid var(--slate-700);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.quoteIcon {
+  color: var(--orange);
+  opacity: 0.6;
+}
+
+.body {
+  color: var(--slate-300);
+  font-family: 'Barlow', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+  flex: 1;
+}
+
+.meta {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.metaText {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.metaText strong {
+  color: #fff;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+}
+.metaText span {
+  color: var(--slate-500);
+  font-size: 0.75rem;
+  font-family: 'Barlow Condensed', sans-serif;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.verified {
+  margin-left: auto;
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  color: #86efac;
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  background: rgba(34,197,94,0.1);
+  border: 1px solid rgba(34,197,94,0.3);
+  border-radius: 999px;
+  font-family: 'Barlow Condensed', sans-serif;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}

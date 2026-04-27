@@ -71,6 +71,34 @@
   50% { opacity: 0.5; }
 }
 
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.trackLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 10px;
+  background: transparent;
+  color: var(--slate-300);
+  border: 1px solid var(--slate-700);
+  border-radius: 6px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.trackLink:hover {
+  color: var(--orange);
+  border-color: var(--orange);
+}
+
 .phone {
   display: inline-flex;
   align-items: center;
@@ -98,4 +126,5 @@
   }
   .logoRest { display: none; }
   .center { order: 3; width: 100%; }
+  .trackLink { display: none; }
 }

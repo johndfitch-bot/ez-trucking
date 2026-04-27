@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Phone } from 'lucide-react'
+import { Phone, Search } from 'lucide-react'
 import { useAvailability } from '../hooks/useAvailability'
 import styles from './Navbar.module.css'
 
@@ -7,6 +7,7 @@ const STATUS_MAP = {
   available: { label: 'Available', color: 'green' },
   limited: { label: 'Limited', color: 'yellow' },
   booked: { label: 'Booked', color: 'red' },
+  off: { label: 'Off duty', color: 'red' },
 }
 
 export default function Navbar() {
@@ -25,10 +26,16 @@ export default function Navbar() {
           {statusInfo.label}
         </span>
       </div>
-      <a href="tel:9167186977" className={styles.phone}>
-        <Phone size={18} aria-hidden />
-        (916) 718-6977
-      </a>
+      <div className={styles.actions}>
+        <Link to="/#schedule" className={styles.trackLink}>
+          <Search size={14} aria-hidden />
+          Track
+        </Link>
+        <a href="tel:9167186977" className={styles.phone}>
+          <Phone size={18} aria-hidden />
+          (916) 718-6977
+        </a>
+      </div>
     </nav>
   )
 }

@@ -1,0 +1,96 @@
+.main {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 84px 20px 60px;
+  min-height: 60vh;
+  color: var(--slate-200);
+}
+.loading {
+  text-align: center;
+  color: var(--slate-400);
+  padding: 80px 0;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 28px;
+  background: var(--slate-800);
+  border: 1px solid var(--slate-700);
+  border-radius: 14px;
+  text-align: left;
+}
+.card h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  color: #fff;
+  font-size: 1.8rem;
+  letter-spacing: 0.03em;
+  margin: 4px 0 0;
+}
+.card p {
+  color: var(--slate-400);
+  font-family: 'Barlow', sans-serif;
+  margin: 0;
+}
+.sub {
+  color: var(--slate-500) !important;
+  font-size: 0.9rem !important;
+}
+.kicker {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  padding: 4px 10px;
+  background: rgba(34,197,94,0.12);
+  color: #86efac;
+  border: 1px solid rgba(34,197,94,0.3);
+  border-radius: 999px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  align-self: flex-start;
+}
+.stars {
+  display: flex;
+  gap: 4px;
+  color: #facc15;
+}
+.stars button {
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 2px;
+}
+.card textarea {
+  padding: 12px;
+  background: var(--slate-900);
+  border: 1px solid var(--slate-700);
+  border-radius: 8px;
+  color: #fff;
+  font-family: 'Barlow', sans-serif;
+  resize: vertical;
+  min-height: 100px;
+}
+.card textarea:focus { outline: none; border-color: var(--orange); }
+.err { color: #fca5a5 !important; }
+.primaryBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 18px;
+  background: var(--orange);
+  color: var(--slate-900);
+  border: none;
+  border-radius: 8px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.primaryBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+.doneIcon { color: #22c55e; }

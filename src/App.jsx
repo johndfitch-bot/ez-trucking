@@ -12,6 +12,12 @@ import GoogleMap from './components/GoogleMap'
 import Footer from './components/Footer'
 import MobileStickyFooter from './components/MobileStickyFooter'
 import AdminPanel from './components/AdminPanel'
+import Reviews from './components/Reviews'
+import AvailabilityCalendar from './components/AvailabilityCalendar'
+import TrackLookup from './components/TrackLookup'
+import TrackLoad from './pages/TrackLoad'
+import Driver from './pages/Driver'
+import ReviewFormPage from './pages/ReviewForm'
 
 function HomePage() {
   return (
@@ -20,11 +26,16 @@ function HomePage() {
       <Hero />
       <MarqueeTrust />
       <Services />
+      <TrackLookup />
       <section id="gallery-preview" aria-label="Gallery preview">
         <Gallery preview />
       </section>
       <NightOps />
       <About />
+      <Reviews />
+      <section id="schedule" aria-label="Availability calendar" style={{ padding: '4rem 1rem', background: 'var(--slate-900)' }}>
+        <AvailabilityCalendar />
+      </section>
       <RateEstimator />
       <section id="quote" aria-label="Get a quote">
         <div className="quoteSection">
@@ -43,7 +54,10 @@ function App() {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/gallery" element={<><Navbar /><Gallery /><Footer /><MobileStickyFooter /></>} />
-      <Route path="/admin" element={<><Navbar /><AdminPanel /><Footer /></>} />
+      <Route path="/track/:token" element={<TrackLoad />} />
+      <Route path="/review/:token" element={<ReviewFormPage />} />
+      <Route path="/driver" element={<Driver />} />
+      <Route path="/admin" element={<AdminPanel />} />
     </Routes>
   )
 }

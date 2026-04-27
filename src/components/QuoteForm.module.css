@@ -33,7 +33,7 @@
 }
 
 .form {
-  max-width: 420px;
+  max-width: 480px;
 }
 
 .honeypot {
@@ -97,6 +97,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  position: relative;
 }
 
 .row svg {
@@ -114,6 +115,7 @@
   color: var(--slate-200);
   font-family: 'Barlow', sans-serif;
   font-size: 1rem;
+  width: 100%;
 }
 
 .input:focus,
@@ -126,6 +128,118 @@
   resize: vertical;
   min-height: 80px;
 }
+
+.suggestWrap {
+  position: relative;
+  flex: 1;
+}
+
+.suggestList {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: var(--slate-800);
+  border: 1px solid var(--slate-600);
+  border-radius: 6px;
+  list-style: none;
+  padding: 4px;
+  margin: 0;
+  z-index: 20;
+  max-height: 220px;
+  overflow-y: auto;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+}
+
+.suggestList li button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  text-align: left;
+  padding: 8px 10px;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  color: var(--slate-200);
+  font-family: 'Barlow', sans-serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.suggestList li button:hover {
+  background: rgba(249,115,22,0.12);
+  color: var(--orange);
+}
+
+.milesStrip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: rgba(249,115,22,0.08);
+  border: 1px solid rgba(249,115,22,0.25);
+  border-radius: 6px;
+  color: var(--orange);
+  font-family: 'Barlow Condensed', sans-serif;
+  letter-spacing: 0.04em;
+  font-size: 0.95rem;
+}
+
+.milesStrip strong {
+  margin-left: auto;
+  color: var(--white);
+  font-weight: 700;
+}
+
+.chipRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.chipLabel {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--slate-500);
+  margin-right: 2px;
+  min-width: 60px;
+}
+
+.chip {
+  padding: 6px 12px;
+  background: var(--slate-800);
+  border: 1px solid var(--slate-600);
+  color: var(--slate-300);
+  border-radius: 999px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.18s;
+}
+
+.chip:hover { border-color: var(--slate-500); color: var(--slate-200); }
+.chip[data-selected="true"] {
+  background: rgba(249,115,22,0.14);
+  border-color: var(--orange);
+  color: var(--orange);
+}
+
+.reviewBox {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  background: var(--slate-800);
+  border: 1px solid var(--slate-700);
+  border-radius: 8px;
+  margin-top: 4px;
+}
+.reviewBox div { display: flex; justify-content: space-between; gap: 10px; font-family: 'Barlow', sans-serif; font-size: 0.9rem; }
+.reviewBox span { color: var(--slate-500); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.75rem; }
+.reviewBox strong { color: var(--white); font-weight: 600; }
 
 .buttons {
   display: flex;
@@ -207,6 +321,40 @@
   color: var(--slate-400);
   margin-bottom: 1rem;
 }
+
+.successBand {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 20px;
+  margin: 0 auto 12px;
+  background: rgba(249,115,22,0.1);
+  border: 1px solid rgba(249,115,22,0.25);
+  border-radius: 8px;
+}
+.successBand span { font-family: 'Barlow Condensed', sans-serif; color: var(--slate-400); text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.75rem; }
+.successBand strong { color: var(--orange); font-size: 1.15rem; letter-spacing: 0.02em; }
+
+.trackBox {
+  margin: 12px 0 16px;
+  padding: 12px;
+  background: var(--slate-900);
+  border: 1px dashed var(--slate-700);
+  border-radius: 8px;
+}
+.trackLabel { display: block; font-size: 0.7rem; color: var(--slate-500); text-transform: uppercase; letter-spacing: 0.08em; }
+.trackToken { display: block; font-family: 'Barlow Condensed', monospace; color: var(--orange); font-size: 1rem; letter-spacing: 0.08em; margin: 4px 0 8px; }
+.trackActions { display: flex; gap: 8px; justify-content: center; }
+.copyBtn,
+.trackLink {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 12px; font-size: 0.8rem;
+  border-radius: 4px; border: 1px solid var(--slate-600);
+  background: transparent; color: var(--slate-300);
+  text-decoration: none; cursor: pointer;
+  font-family: 'Barlow Condensed', sans-serif;
+}
+.copyBtn:hover, .trackLink:hover { border-color: var(--orange); color: var(--orange); }
 
 .successCta {
   display: inline-flex;

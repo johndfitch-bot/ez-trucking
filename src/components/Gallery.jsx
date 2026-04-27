@@ -36,8 +36,7 @@ export default function Gallery({ preview }) {
   const slides = GALLERY_IMAGES.map((src, i) => ({ src, title: CAPTIONS[i] }))
 
   const openAt = (index) => {
-    const fullIndex = preview ? index : index
-    setLightboxIndex(preview ? index : index)
+    setLightboxIndex(index)
     setLightboxOpen(true)
   }
 
