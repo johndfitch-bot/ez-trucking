@@ -48,7 +48,7 @@ function DiamondHome() {
         <div className="container services-intro">
           <div className="section-header">
             <div>
-              <div className="label section-eyebrow">01 / What I&rsquo;m rigged for</div>
+              <div className="label section-eyebrow">What I&rsquo;m rigged for</div>
               <h2 className="section-title">Rigged for<br />the load.</h2>
             </div>
             <p className="section-meta">Specialty equipment, multi-trailer, single owner. If it fits the trailer, it moves on time.</p>
@@ -61,7 +61,7 @@ function DiamondHome() {
             <div className="service-overlay"></div>
             <div className="service-content">
               <div className="service-inner">
-                <div className="service-num label">01 / Hay &amp; Agricultural</div>
+                <div className="service-num label">Hay &amp; Agricultural</div>
                 <div className="service-name">Hay &amp;<br />Agricultural.</div>
                 <div className="service-spec"><strong>48ft flatbed sets &middot; 80K capacity.</strong> Full bales, squeezes, wrapped or loose. Farm-pickup to feedlot delivery across the Central Valley and beyond.</div>
               </div>
@@ -73,7 +73,7 @@ function DiamondHome() {
             <div className="service-overlay"></div>
             <div className="service-content">
               <div className="service-inner">
-                <div className="service-num label">02 / Flatbed &amp; Construction</div>
+                <div className="service-num label">Flatbed &amp; Construction</div>
                 <div className="service-name">Flatbed &amp;<br />Construction.</div>
                 <div className="service-spec"><strong>Open-deck for the heavy and the awkward.</strong> Lumber, equipment, materials, oversized framing. Strapped and tarped right.</div>
               </div>
@@ -85,7 +85,7 @@ function DiamondHome() {
             <div className="service-overlay"></div>
             <div className="service-content">
               <div className="service-inner">
-                <div className="service-num label">03 / Container Transport</div>
+                <div className="service-num label">Container Transport</div>
                 <div className="service-name">Container<br />Transport.</div>
                 <div className="service-spec"><strong>Port to yard, yard to door.</strong> 20ft and 40ft containers from Oakland and Sacramento ramps to anywhere in the service area.</div>
               </div>
@@ -97,7 +97,7 @@ function DiamondHome() {
             <div className="service-overlay"></div>
             <div className="service-content">
               <div className="service-inner">
-                <div className="service-num label">04 / Hot Shot &middot; 24/7</div>
+                <div className="service-num label">Hot Shot &middot; 24/7</div>
                 <div className="service-name">Hot Shot.<br />Twenty-Four Seven.</div>
                 <div className="service-spec"><strong>When the schedule broke and you need it gone now.</strong> Phone rings, truck rolls. Same-day pickup across NorCal.</div>
               </div>
@@ -113,7 +113,7 @@ function DiamondHome() {
             <div className="eric-photo-tag">&#9670; Eric Z &middot; Lincoln, CA</div>
           </div>
           <div className="eric-text">
-            <div className="label eric-text-eyebrow">02 / The man behind the wheel</div>
+            <div className="label eric-text-eyebrow">The man behind the wheel</div>
             <p className="eric-quote">&ldquo;If I said I&rsquo;d be there at six,<br /><span className="accent">I&rsquo;m there at five-forty-five.&rdquo;</span></p>
             <p className="eric-bio">Eric&rsquo;s been hauling out of Lincoln since 2006 &mdash; hay, flatbed, containers, hot shot. No fleet, no dispatch desk, no answering service. When you call EZ Trucking, you get the guy with his hands on the wheel.</p>
             <div className="eric-attr">
@@ -129,7 +129,7 @@ function DiamondHome() {
       <section className="gallery-strip">
         <div className="gallery-header">
           <div>
-            <div className="label section-eyebrow">03 / On the road</div>
+            <div className="label section-eyebrow">On the road</div>
             <h2>The work<br />speaks for itself.</h2>
           </div>
           <p className="section-meta">A few from the road. From the Bay Bridge to the Central Valley to the Sierra crossing.</p>
@@ -160,7 +160,7 @@ function DiamondHome() {
         <div className="container">
           <div className="section-header">
             <div>
-              <div className="label section-eyebrow">04 / Where I run</div>
+              <div className="label section-eyebrow">Where I run</div>
               <h2>Lanes I run<br />every week.</h2>
             </div>
             <p className="section-meta">Based out of Lincoln, CA. Regular runs across NorCal corridors, with reach into Oregon and Nevada.</p>
@@ -204,7 +204,7 @@ function DiamondHome() {
       <section className="safety-record">
         <div className="safety-inner">
           <div className="safety-header">
-            <div className="label safety-eyebrow">05 / Federal Record</div>
+            <div className="label safety-eyebrow">Federal Record</div>
             <h2>Twenty years.<br /><span className="accent">Zero crashes.</span></h2>
             <p className="safety-subhead">Pull the FMCSA record. The numbers are public &mdash; and they speak louder than any tagline I could write.</p>
           </div>
@@ -240,7 +240,7 @@ function DiamondHome() {
       </section>
 
       <section className="contact">
-        <div className="label contact-eyebrow">06 / Direct Line</div>
+        <div className="label contact-eyebrow">Direct Line</div>
         <h2>I answer<br />my own phone.</h2>
         <a href="tel:9167186977" className="phone-huge">(916) 718-6977</a>
         <p className="contact-meta">Or text a photo of your load &mdash; fastest way to a quote.</p>
