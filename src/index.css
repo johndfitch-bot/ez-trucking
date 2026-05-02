@@ -6,7 +6,7 @@
   --accent: #f97316;
   --text-1: #fafafa;
   --text-2: rgba(250, 250, 250, 0.72);
-  --text-3: rgba(250, 250, 250, 0.42);
+  --text-3: rgba(250, 250, 250, 0.6);
   --rule: rgba(255, 255, 255, 0.08);
   --rule-strong: rgba(255, 255, 255, 0.18);
 }
@@ -110,6 +110,7 @@ body {
 .btn-primary {
   background: var(--accent); color: #0a0a0a;
   padding: 18px 32px;
+  min-height: 56px;
   font-family: 'Barlow Condensed', sans-serif;
   font-weight: 600;
   text-transform: uppercase;
@@ -118,13 +119,16 @@ body {
   border: none;
   cursor: pointer;
   text-decoration: none;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 .btn-ghost {
   background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(8px);
   color: var(--text-1);
   padding: 18px 32px;
+  min-height: 56px;
   font-family: 'Barlow Condensed', sans-serif;
   font-weight: 500;
   text-transform: uppercase;
@@ -133,7 +137,9 @@ body {
   border: 1px solid var(--rule-strong);
   cursor: pointer;
   text-decoration: none;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* === MARQUEE === */
@@ -143,6 +149,8 @@ body {
   border-bottom: 1px solid var(--rule);
   overflow: hidden;
   padding: 22px 0;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 48px, #000 calc(100% - 48px), transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 48px, #000 calc(100% - 48px), transparent 100%);
 }
 .marquee-track {
   display: flex;
@@ -236,12 +244,18 @@ body {
 .svc-3 .service-bg { background-image: url('/images/ez-container2.png'); }
 .svc-4 .service-bg { background-image: url('/images/ez-night-yard.png'); }
 
-/* Desktop-only photo position tuning — mobile uses default center crop */
+/* Mobile-first photo positions — keep cabs/payloads visible */
+.svc-1 .service-bg { background-position: center 60%; }
+.svc-2 .service-bg { background-position: center 30%; }
+.svc-3 .service-bg { background-position: 75% center; }
+.svc-4 .service-bg { background-position: center bottom; }
+
+/* Desktop photo position tuning */
 @media (min-width: 769px) {
   .svc-1 .service-bg { background-position: center calc(50% + 30px); }
-  .svc-2 .service-bg { background-position: center calc(20% + 15px); }
+  .svc-2 .service-bg { background-position: center 30%; }
   .svc-3 .service-bg { background-position: center calc(50% + 80px); }
-  .svc-4 .service-bg { background-position: center calc(50% + 40px); }
+  .svc-4 .service-bg { background-position: center calc(50% + 120px); }
 }
 
 /* === ERIC SPREAD === */
@@ -294,6 +308,7 @@ body {
   line-height: 1.02;
   margin-bottom: 28px;
   letter-spacing: 0.005em;
+  text-wrap: balance;
 }
 .eric-quote .accent { color: var(--accent); }
 .eric-bio {
@@ -365,15 +380,19 @@ body {
   color: var(--text-1);
 }
 .gallery-tile-caption .label {
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.22em;
   margin-bottom: 6px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
 }
 .gallery-tile-caption .name {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 1.4rem;
   letter-spacing: 0.05em;
   line-height: 1;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
 }
 .gal-1 { background-image: url('/images/ez-flatbed-sf.png'); }
 .gal-2 { background-image: url('/images/ez-trees.png'); }
@@ -508,13 +527,14 @@ body {
 }
 .phone-huge {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(3.5rem, 8vw, 7rem);
+  font-size: clamp(2.4rem, 11vw, 7rem);
   color: var(--accent);
   letter-spacing: 0.04em;
   line-height: 1;
   display: block;
   margin-bottom: 24px;
   text-decoration: none;
+  white-space: nowrap;
 }
 .contact-meta { color: var(--text-2); font-size: 1rem; margin-bottom: 8px; }
 .contact-meta-sub { color: var(--text-3); font-size: 0.85rem; }
@@ -547,22 +567,42 @@ body {
   .eric-grid { grid-template-columns: 1fr; gap: 32px; }
   .gallery-grid { grid-template-columns: 1fr; height: auto; }
   .gallery-tile { height: 240px; }
+  .service-block.right .service-content { text-align: left; }
+  .service-block.right .service-inner { margin-left: 0; }
 }
 @media (max-width: 768px) {
   .lanes-grid { grid-template-columns: 1fr; }
   .lane { border-right: none; }
   .lane:nth-last-child(-n+3) { border-bottom: 1px solid var(--rule); }
   .lane:last-child { border-bottom: none; }
-  .nav-call { font-size: 0.7rem; padding: 8px 12px; letter-spacing: 0.15em; }
+  .nav-call { font-size: 0.7rem; padding: 8px 12px; letter-spacing: 0.15em; min-height: 44px; display: inline-flex; align-items: center; }
   .wordmark-est { display: none; }
   .hero { min-height: 480px; }
   .hero-content { padding-bottom: 40px; }
+  .hero h1 { max-width: 100%; }
   .section { padding: 56px 0; }
   .services-intro { padding-top: 56px; padding-bottom: 32px; }
   .service-block { min-height: 320px; }
-  .service-block.right .service-content { text-align: left; }
-  .service-block.right .service-inner { margin-left: 0; }
+  .section-header { gap: 16px; margin-bottom: 32px; }
+  .section-meta { padding-top: 8px; max-width: 100%; }
   .service-block .service-overlay {
-    background: linear-gradient(90deg, rgba(10, 10, 10, 0.78) 0%, rgba(10, 10, 10, 0.4) 60%, rgba(10, 10, 10, 0.2) 100%) !important;
+    background: linear-gradient(90deg, rgba(10, 10, 10, 0.88) 0%, rgba(10, 10, 10, 0.55) 55%, rgba(10, 10, 10, 0.25) 100%) !important;
   }
+}
+@media (max-width: 480px) {
+  .container, .nav-inner, .hero-content, .service-content, .gallery-header, .safety-inner, .trust-inner { padding-left: 16px; padding-right: 16px; }
+  .eric-grid { padding-left: 16px; padding-right: 16px; gap: 24px; }
+  .footer { padding-left: 16px; padding-right: 16px; }
+  .contact { padding-left: 16px; padding-right: 16px; padding-top: 80px; padding-bottom: 80px; }
+  .hero h1 { font-size: clamp(2.6rem, 13.5vw, 4rem); letter-spacing: 0; margin-bottom: 18px; }
+  .hero-sub { font-size: 0.98rem; margin-bottom: 22px; }
+  .safety-grid { grid-template-columns: 1fr; }
+  .safety-stat { padding: 24px 16px; }
+  .eric-quote { font-size: clamp(2rem, 9vw, 3rem); }
+  .trust-inner { justify-content: center; gap: 12px 20px; text-align: center; }
+  .trust-item { font-size: 0.72rem; }
+  .gallery-header { margin-bottom: 32px; }
+  .safety-source-numbers { font-size: 1.2rem; letter-spacing: 0.04em; }
+  .safety-source-numbers .pipe { margin: 0 8px; }
+  .contact h2 { margin-bottom: 28px; }
 }

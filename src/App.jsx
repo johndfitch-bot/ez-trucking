@@ -57,7 +57,7 @@ function DiamondHome() {
 
         <div className="services-stack">
           <div className="service-block svc-1 left">
-            <div className="service-bg"></div>
+            <div className="service-bg" role="img" aria-label="Hay truck on the road at night"></div>
             <div className="service-overlay"></div>
             <div className="service-content">
               <div className="service-inner">
@@ -69,7 +69,7 @@ function DiamondHome() {
           </div>
 
           <div className="service-block svc-2 right">
-            <div className="service-bg"></div>
+            <div className="service-bg" role="img" aria-label="Flatbed truck loaded with hay bales"></div>
             <div className="service-overlay"></div>
             <div className="service-content">
               <div className="service-inner">
@@ -81,7 +81,7 @@ function DiamondHome() {
           </div>
 
           <div className="service-block svc-3 left">
-            <div className="service-bg"></div>
+            <div className="service-bg" role="img" aria-label="Shipping container on flatbed trailer"></div>
             <div className="service-overlay"></div>
             <div className="service-content">
               <div className="service-inner">
@@ -93,7 +93,7 @@ function DiamondHome() {
           </div>
 
           <div className="service-block svc-4 right">
-            <div className="service-bg"></div>
+            <div className="service-bg" role="img" aria-label="Truck staged in a yard at night, ready for hot shot dispatch"></div>
             <div className="service-overlay"></div>
             <div className="service-content">
               <div className="service-inner">
@@ -244,7 +244,7 @@ function DiamondHome() {
         <h2>I answer<br />my own phone.</h2>
         <a href="tel:9167186977" className="phone-huge">(916) 718-6977</a>
         <p className="contact-meta">Or text a photo of your load &mdash; fastest way to a quote.</p>
-        <p className="contact-meta-sub">1haytrucker1@gmail.com &middot; Lincoln, CA &middot; Available 24/7</p>
+        <p className="contact-meta-sub"><a href="mailto:1haytrucker1@gmail.com">1haytrucker1@gmail.com</a> &middot; Lincoln, CA &middot; Available 24/7</p>
       </section>
 
       <div className="trust">
