@@ -60,6 +60,7 @@ body {
   border: 1.5px solid var(--accent);
   color: var(--accent);
   padding: 10px 18px;
+  min-height: 48px;
   font-family: 'Barlow Condensed', sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.2em;
@@ -68,7 +69,9 @@ body {
   background: transparent;
   cursor: pointer;
   text-decoration: none;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* === HERO === */
@@ -246,16 +249,16 @@ body {
 
 /* Mobile-first photo positions — keep cabs/payloads visible */
 .svc-1 .service-bg { background-position: center 60%; }
-.svc-2 .service-bg { background-position: center 30%; }
+.svc-2 .service-bg { background-position: center 18%; }
 .svc-3 .service-bg { background-position: 75% center; }
-.svc-4 .service-bg { background-position: center bottom; }
+.svc-4 .service-bg { background-position: 35% 65%; }
 
 /* Desktop photo position tuning */
 @media (min-width: 769px) {
   .svc-1 .service-bg { background-position: center calc(50% + 30px); }
-  .svc-2 .service-bg { background-position: center 30%; }
+  .svc-2 .service-bg { background-position: center 25%; }
   .svc-3 .service-bg { background-position: center calc(50% + 80px); }
-  .svc-4 .service-bg { background-position: center calc(50% + 120px); }
+  .svc-4 .service-bg { background-position: 35% calc(50% + 60px); }
 }
 
 /* === ERIC SPREAD === */
@@ -575,7 +578,7 @@ body {
   .lane { border-right: none; }
   .lane:nth-last-child(-n+3) { border-bottom: 1px solid var(--rule); }
   .lane:last-child { border-bottom: none; }
-  .nav-call { font-size: 0.7rem; padding: 8px 12px; letter-spacing: 0.15em; min-height: 44px; display: inline-flex; align-items: center; }
+  .nav-call { font-size: 0.7rem; padding: 8px 12px; letter-spacing: 0.15em; }
   .wordmark-est { display: none; }
   .hero { min-height: 480px; }
   .hero-content { padding-bottom: 40px; }
