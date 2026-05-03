@@ -46,16 +46,22 @@ body {
   border-bottom: 1px solid var(--rule);
 }
 .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 18px 32px; max-width: 1280px; margin: 0 auto; }
-.wordmark { display: flex; align-items: center; gap: 14px; }
+.wordmark { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
 .wordmark-stamp {
   border: 1.5px solid var(--text-1);
-  padding: 6px 12px 4px;
+  padding: 8px 16px 6px;
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 1rem;
-  letter-spacing: 0.06em;
+  font-size: 1.45rem;
+  letter-spacing: 0.07em;
   line-height: 1;
 }
-.wordmark-est { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; letter-spacing: 0.3em; color: var(--text-3); text-transform: uppercase; }
+.wordmark-est {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.22em;
+  color: var(--text-3);
+  text-transform: uppercase;
+}
 .nav-call {
   border: 1.5px solid var(--accent);
   color: var(--accent);
@@ -557,10 +563,10 @@ body {
 .footer-mark {
   border: 1.5px solid var(--text-2);
   display: inline-block;
-  padding: 10px 20px 8px;
+  padding: 12px 24px 10px;
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.15rem;
-  letter-spacing: 0.08em;
+  font-size: 1.65rem;
+  letter-spacing: 0.07em;
   margin-bottom: 16px;
   color: var(--text-1);
 }
@@ -578,9 +584,25 @@ body {
   .lane { border-right: none; }
   .lane:nth-last-child(-n+3) { border-bottom: 1px solid var(--rule); }
   .lane:last-child { border-bottom: none; }
-  .nav-call { font-size: 0.7rem; padding: 8px 12px; letter-spacing: 0.15em; }
-  .wordmark-est { display: none; }
-  .wordmark-stamp { font-size: 0.78rem; letter-spacing: 0.04em; padding: 5px 8px 3px; }
+  .nav-call { font-size: 0.72rem; padding: 8px 12px; letter-spacing: 0.14em; }
+  .nav-inner { align-items: center; gap: 12px; }
+  .wordmark {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    max-width: min(100%, 72vw);
+  }
+  .wordmark-est {
+    display: block;
+    font-size: 0.74rem;
+    letter-spacing: 0.16em;
+    line-height: 1.35;
+  }
+  .wordmark-stamp {
+    font-size: clamp(1.05rem, 4.2vw, 1.35rem);
+    letter-spacing: 0.055em;
+    padding: 7px 14px 5px;
+  }
   .hero { min-height: 480px; }
   .hero-content { padding-bottom: 40px; }
   .hero h1 { max-width: 100%; }
@@ -609,5 +631,14 @@ body {
   .safety-source-numbers { font-size: 1.2rem; letter-spacing: 0.04em; }
   .safety-source-numbers .pipe { margin: 0 8px; }
   .contact h2 { margin-bottom: 28px; }
-  .footer-mark { font-size: 0.95rem; letter-spacing: 0.05em; padding: 8px 12px 6px; }
+  .wordmark-stamp {
+    font-size: clamp(1rem, 4.8vw, 1.28rem);
+    padding: 7px 12px 5px;
+  }
+  .wordmark-est { font-size: 0.7rem; letter-spacing: 0.12em; }
+  .footer-mark {
+    font-size: clamp(1.2rem, 5.5vw, 1.55rem);
+    letter-spacing: 0.055em;
+    padding: 10px 16px 8px;
+  }
 }
