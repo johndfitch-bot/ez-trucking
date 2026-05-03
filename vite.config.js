@@ -10,9 +10,9 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       manifest: {
-        name: 'EZ Trucking LLC | Lincoln, CA | Owner-Operator Since 2006',
-        short_name: 'EZ Trucking',
-        description: 'EZ Trucking LLC — Owner-operator trucking, Lincoln CA. (916) 718-6977',
+        name: 'ERIC Z TRUCKING LLC | Lincoln, CA | Owner-Operator Since 2006',
+        short_name: 'ERIC Z TRUCKING LLC',
+        description: 'ERIC Z TRUCKING LLC — Owner-operator trucking, Lincoln CA. (916) 718-6977',
         start_url: '/',
         display: 'standalone',
         theme_color: '#0f172a',

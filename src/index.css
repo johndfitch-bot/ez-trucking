@@ -1,4 +1,4 @@
-/* EZ Trucking LLC — Diamond v4.3 */
+/* ERIC Z TRUCKING LLC — Diamond v4.3 */
 :root {
   --bg-1: #0a0a0a;
   --bg-2: #111111;
@@ -51,8 +51,8 @@ body {
   border: 1.5px solid var(--text-1);
   padding: 6px 12px 4px;
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.1rem;
-  letter-spacing: 0.12em;
+  font-size: 1rem;
+  letter-spacing: 0.06em;
   line-height: 1;
 }
 .wordmark-est { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; letter-spacing: 0.3em; color: var(--text-3); text-transform: uppercase; }
@@ -559,8 +559,8 @@ body {
   display: inline-block;
   padding: 10px 20px 8px;
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.4rem;
-  letter-spacing: 0.15em;
+  font-size: 1.15rem;
+  letter-spacing: 0.08em;
   margin-bottom: 16px;
   color: var(--text-1);
 }
@@ -580,6 +580,7 @@ body {
   .lane:last-child { border-bottom: none; }
   .nav-call { font-size: 0.7rem; padding: 8px 12px; letter-spacing: 0.15em; }
   .wordmark-est { display: none; }
+  .wordmark-stamp { font-size: 0.78rem; letter-spacing: 0.04em; padding: 5px 8px 3px; }
   .hero { min-height: 480px; }
   .hero-content { padding-bottom: 40px; }
   .hero h1 { max-width: 100%; }
@@ -608,4 +609,5 @@ body {
   .safety-source-numbers { font-size: 1.2rem; letter-spacing: 0.04em; }
   .safety-source-numbers .pipe { margin: 0 8px; }
   .contact h2 { margin-bottom: 28px; }
+  .footer-mark { font-size: 0.95rem; letter-spacing: 0.05em; padding: 8px 12px 6px; }
 }

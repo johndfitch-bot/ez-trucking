@@ -1,7 +1,7 @@
 // Lightweight geocoding + distance helpers.
 // Uses OpenStreetMap Nominatim (free, usage-policy compliant with caching + attribution).
 
-const UA = 'EZTruckingLLC/1.0 (+https://eztruckingllc.com)'
+const UA = 'EricZTruckingLLC/1.0 (+https://eztruckingllc.com)'
 const CACHE_KEY = 'ez_geo_cache_v1'
 
 function loadCache() {
@@ -11,7 +11,7 @@ function saveCache(c) {
   try { localStorage.setItem(CACHE_KEY, JSON.stringify(c)) } catch { /* noop */ }
 }
 
-// Bias geocoding to EZ's service area (CA, NV, OR, WA, AZ, ID).
+// Bias geocoding to Eric Z Trucking LLC service area (CA, NV, OR, WA, AZ, ID).
 // Bounding box: lon -124.5 to -111, lat 32 to 49.
 const VIEWBOX = '-124.5,49,-111,32'
 

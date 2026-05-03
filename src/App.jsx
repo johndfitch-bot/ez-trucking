@@ -4,7 +4,7 @@ function DiamondHome() {
       <nav className="nav">
         <div className="nav-inner">
           <div className="wordmark">
-            <div className="wordmark-stamp">EZ TRUCKING</div>
+            <div className="wordmark-stamp">ERIC Z TRUCKING LLC</div>
             <div className="wordmark-est">Est. 2006 &middot; Lincoln, CA</div>
           </div>
           <a href="tel:9167186977" className="nav-call">Call (916) 718-6977</a>
@@ -115,7 +115,7 @@ function DiamondHome() {
           <div className="eric-text">
             <div className="label eric-text-eyebrow">The man behind the wheel</div>
             <p className="eric-quote">&ldquo;If I said I&rsquo;d be there at six,<br /><span className="accent">I&rsquo;m there at five-forty-five.&rdquo;</span></p>
-            <p className="eric-bio">Eric&rsquo;s been hauling out of Lincoln since 2006 &mdash; hay, flatbed, containers, hot shot. No fleet, no dispatch desk, no answering service. When you call EZ Trucking, you get the guy with his hands on the wheel.</p>
+            <p className="eric-bio">Eric&rsquo;s been hauling out of Lincoln since 2006 &mdash; hay, flatbed, containers, hot shot. No fleet, no dispatch desk, no answering service. When you call ERIC Z TRUCKING LLC, you get the guy with his hands on the wheel.</p>
             <div className="eric-attr">
               <div>
                 <div className="eric-attr-name">Eric Z</div>
@@ -258,7 +258,7 @@ function DiamondHome() {
       </div>
 
       <footer className="footer">
-        <div className="footer-mark">EZ TRUCKING LLC</div>
+        <div className="footer-mark">ERIC Z TRUCKING LLC</div>
         <div className="footer-line">Lincoln, California &middot; Owner-Operator &middot; &copy; 2026</div>
       </footer>
     </div>

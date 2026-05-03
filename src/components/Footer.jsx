@@ -11,8 +11,8 @@ export default function Footer() {
       <div className={styles.container}>
         <div className={styles.brand}>
           <Link to="/" className={styles.logo}>
-            <span className={styles.logoEz}>EZ</span>
-            <span className={styles.logoRest}> Trucking LLC</span>
+            <span className={styles.logoEz}>ERIC Z</span>
+            <span className={styles.logoRest}> TRUCKING LLC</span>
           </Link>
           <p className={styles.tagline}>When you need it there yesterday.</p>
         </div>
@@ -50,7 +50,7 @@ export default function Footer() {
         </div>
       </div>
       <div className={styles.copyright}>
-        &copy; {new Date().getFullYear()} Eric Z Trucking LLC
+        &copy; {new Date().getFullYear()} ERIC Z TRUCKING LLC
       </div>
     </footer>
   )

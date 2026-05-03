@@ -6,8 +6,8 @@ export default function Navbar() {
   return (
     <nav className={styles.nav}>
       <Link to="/" className={styles.logo}>
-        <span className={styles.logoEz}>EZ</span>
-        <span className={styles.logoRest}> Trucking LLC / Lincoln CA Est. 2006</span>
+        <span className={styles.logoEz}>ERIC Z</span>
+        <span className={styles.logoRest}> TRUCKING LLC / Lincoln CA Est. 2006</span>
       </Link>
       <div className={styles.actions}>
         <a href="#quote" className={styles.quoteLink}>Get a quote</a>

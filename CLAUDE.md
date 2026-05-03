@@ -1,4 +1,4 @@
-# CLAUDE.md — EZ Trucking
+# CLAUDE.md — ERIC Z TRUCKING LLC
 
 > **🏛️ HQ DOCTRINE — READ FIRST EVERY SESSION:**
 > 1. `../fitchcraft-ops/DOCTRINE/01_AGENT_OPENING_DOCTRINE.md` (5-min cold-start read)
