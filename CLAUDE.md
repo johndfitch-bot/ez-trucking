@@ -1,11 +1,14 @@
 # CLAUDE.md — ERIC Z TRUCKING LLC
+### CC Agent Identity & Operating Rules
 
-> **🏛️ HQ DOCTRINE — READ FIRST EVERY SESSION:**
-> 1. `../fitchcraft-ops/DOCTRINE/01_AGENT_OPENING_DOCTRINE.md` (5-min cold-start read)
-> 2. `../fitchcraft-ops/DOCTRINE/00_FITCHCRAFT_HOLY_GRAIL.md` (full FitchCraft context)
-> 3. `../fitchcraft-ops/HUMAN_TODO/ez-trucking_TODO.md` (active blockers / stubs)
->
-> If anything below conflicts with HQ doctrine, **HQ wins.** Update this file to reconcile.
+> **READ FIRST (mandatory cold-start, every session):**
+> 1. `../fitchcraft-ops/DOCTRINE/01_AGENT_OPENING_DOCTRINE.md`
+> 2. `../fitchcraft-ops/DOCTRINE/00_FITCHCRAFT_HOLY_GRAIL.md` (full context)
+> 3. This file (project-scoped specifics)
+
+If anything in this file conflicts with HQ doctrine, **HQ wins**. Update this file to reconcile.
+
+---
 
 ## What This Is
 Trucking logistics and booking platform built with modern React 19, Vite, and Framer Motion for fluid UI interactions.
